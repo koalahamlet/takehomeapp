@@ -2,6 +2,7 @@ package com.mikehuff.takehomeapplication.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.mikehuff.takehomeapplication.R;
 import com.mikehuff.takehomeapplication.injection.Injector;
@@ -20,8 +21,11 @@ import timber.log.Timber;
 
 import static com.mikehuff.takehomeapplication.Constants.API_KEY;
 import static com.mikehuff.takehomeapplication.Constants.DUMMY_IMAGE;
+import static com.mikehuff.takehomeapplication.Constants.EXTRA_ERROR_MESSAGE;
 
 public class DatabaseSyncService extends IntentService {
+
+  public static final String ACTION_COMMUNICATE_ERROR = "com.mikehuff.networking_error";
 
   public DatabaseSyncService() {
     super("DatabaseSyncService");
@@ -58,16 +62,16 @@ public class DatabaseSyncService extends IntentService {
         if (!m.isDeleted()) {
           realm.copyToRealmOrUpdate(rUser);
         } else {
-          if (rUser.isValid()) {
-            rUser.deleteFromRealm();
-          }
+          if (rUser.isValid()) rUser.deleteFromRealm();
         }
-
       }
       realm.commitTransaction();
 
     } catch (IOException e) {
       e.printStackTrace();
+      Intent in = new Intent(ACTION_COMMUNICATE_ERROR);
+      in.putExtra(EXTRA_ERROR_MESSAGE, e.getMessage());
+      LocalBroadcastManager.getInstance(this).sendBroadcast(in);
     }
 
   }
