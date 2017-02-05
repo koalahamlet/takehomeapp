@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TakeHomeApplication</string>
+    <string name="default_title">This person keeps an air of mystery about them</string>
+    <string name="default_telephone">415-687-5309</string>
 </resources>
