@@ -73,6 +73,6 @@ public class DatabaseSyncService extends IntentService {
       in.putExtra(EXTRA_ERROR_MESSAGE, e.getMessage());
       LocalBroadcastManager.getInstance(this).sendBroadcast(in);
     }
-
+    realm.close();
   }
 }
