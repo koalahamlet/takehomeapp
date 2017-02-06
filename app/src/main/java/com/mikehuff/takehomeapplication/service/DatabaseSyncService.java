@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.List;
 
 import io.realm.Realm;
-import timber.log.Timber;
 
 import static com.mikehuff.takehomeapplication.Constants.API_KEY;
 import static com.mikehuff.takehomeapplication.Constants.DUMMY_IMAGE;
@@ -33,13 +32,11 @@ public class DatabaseSyncService extends IntentService {
 
   @Override
   protected void onHandleIntent(Intent intent) {
-    Timber.d("received intent");
     Realm realm = Injector.provideRealm();
     UserService service = Injector.provideUserService();
     TeamResponse response;
 
     try {
-
       response = service.getUserList(API_KEY, "1", "1").execute().body();
 
       List<Member> members = response.getMembers();

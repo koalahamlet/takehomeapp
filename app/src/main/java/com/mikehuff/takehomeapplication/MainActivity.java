@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
-import timber.log.Timber;
 
 import static com.mikehuff.takehomeapplication.Constants.EXTRA_ERROR_MESSAGE;
 
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     realm.addChangeListener(new RealmChangeListener<Realm>() {
       @Override
       public void onChange(Realm element) {
-        Timber.d("Realm Changed!");
         updateAdapter();
       }
     });
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
   private void updateAdapter() {
     RealmResults<RealmUser> userlist = realm.where(RealmUser.class).findAll();
-    Timber.d("updateadapter");
     userRecyclerView.setAdapter(userAdapter);
     userAdapter.setUserResults(userlist);
     userAdapter.notifyDataSetChanged();
