@@ -1,12 +1,12 @@
 # takehomeapp
-This app was made as a take home assignment, to demonstrate a simple application that functions 
-if the user happens to have either slow or no signal, after at least one startup. 
+This app was made as a take home assignment, to demonstrate a simple application that continues to display data 
+even when the user has slow to no signal, after at least one startup. 
 
-This project should function well, right out of the box. 
+This project should function well, right out of the box. Simply import into AndroidStudio as a gradle project.
 
-I tried to seperate the app into logical components of Persistance, DataBaseServices, Networking, Models, Utils, and Injection.
-I've also attempted to provide a more thorough view of my architectural decisions in the commit messages, 
-so make sure to note the expanded text. 
+I tried to separate the app into logical components of Persistence, DataBaseServices, Networking, Models, Utils, and Injection.
+I've also attempted to provide a more thorough view of my architectural decisions in the commit messages.
+So, make sure to read the expanded text. 
 
 
 ## libraries used
