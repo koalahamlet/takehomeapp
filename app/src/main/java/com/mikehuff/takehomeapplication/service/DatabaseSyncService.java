@@ -10,6 +10,7 @@ import com.mikehuff.takehomeapplication.models.Member;
 import com.mikehuff.takehomeapplication.models.Profile;
 import com.mikehuff.takehomeapplication.models.TeamResponse;
 import com.mikehuff.takehomeapplication.persistance.RealmUser;
+import com.mikehuff.takehomeapplication.persistance.SharedPrefs;
 import com.mikehuff.takehomeapplication.rest.UserService;
 import com.mikehuff.takehomeapplication.utils.ResUtils;
 
@@ -63,6 +64,8 @@ public class DatabaseSyncService extends IntentService {
         }
       }
       realm.commitTransaction();
+
+      new SharedPrefs(this).setRecentUpdateTime(response.getCacheTs());
 
     } catch (IOException e) {
       e.printStackTrace();

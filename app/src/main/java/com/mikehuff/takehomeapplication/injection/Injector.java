@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 import com.mikehuff.takehomeapplication.Constants;
 import com.mikehuff.takehomeapplication.TakehomeApplication;
+import com.mikehuff.takehomeapplication.persistance.SharedPrefs;
 import com.mikehuff.takehomeapplication.rest.UserService;
 
 import io.realm.Realm;
@@ -35,6 +36,10 @@ public class Injector {
 
   public static UserService provideUserService() {
     return provideRetrofit(Constants.BASE_URL).create(UserService.class);
+  }
+
+  public static SharedPrefs provideSharedPrefs() {
+    return new SharedPrefs(TakehomeApplication.getInstance());
   }
 
   public static Realm provideRealm() {
