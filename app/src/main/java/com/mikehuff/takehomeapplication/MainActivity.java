@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager   layoutManager = new LinearLayoutManager(this);
     userRecyclerView.setLayoutManager(layoutManager);
 
-    userAdapter = new UserAdapter();
+    userAdapter = new UserAdapter(this);
   }
 
   @Override
