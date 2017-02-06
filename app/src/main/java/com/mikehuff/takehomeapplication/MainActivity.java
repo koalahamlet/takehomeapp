@@ -49,10 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
     realm = Injector.provideRealm();
 
-    RecyclerView.LayoutManager   layoutManager = new LinearLayoutManager(this);
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     userRecyclerView.setLayoutManager(layoutManager);
 
     userAdapter = new UserAdapter(this);
+    updateDatabase();
   }
 
   @Override
@@ -75,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
         updateAdapter();
       }
     });
-
-    updateDatabase();
-    updateAdapter();
   }
 
   @Override
@@ -95,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void updateAdapter() {
     RealmResults<RealmUser> userlist = realm.where(RealmUser.class).findAll();
+    Timber.d("updateadapter");
     userRecyclerView.setAdapter(userAdapter);
     userAdapter.setUserResults(userlist);
     userAdapter.notifyDataSetChanged();
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     Intent i = new Intent(this, DatabaseSyncService.class);
     // Start the service
     startService(i);
-    Timber.d("fired intent");
+
   }
 
   private BroadcastReceiver errorReceiver = new BroadcastReceiver() {
@@ -115,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
       String resultCode = intent.getStringExtra(EXTRA_ERROR_MESSAGE);
       Toast.makeText(MainActivity.this, resultCode, Toast.LENGTH_SHORT).show();
       swipeRefreshLayout.setRefreshing(false);
+      //in case this loads into an error from startup, we want to query what results we have.
+      updateAdapter();
     }
   };
 }

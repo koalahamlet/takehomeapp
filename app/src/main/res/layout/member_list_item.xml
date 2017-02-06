@@ -27,7 +27,8 @@
                 android:id="@+id/avatar_image_view"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:transitionName="@string/transition_profile"/>
 
             <TextView
                 android:id="@+id/name"
@@ -43,7 +44,8 @@
                 android:layout_width="@dimen/circle_diameter"
                 android:layout_height="@dimen/circle_diameter"
                 android:layout_marginRight="@dimen/half_horizontal_margin"
-                android:background="@drawable/circle"/>
+                android:background="@drawable/circle"
+                android:transitionName="@string/transition_color"/>
 
             <TextView
                 android:id="@+id/real_name"

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mikehuff.takehomeapplication.persistance.RealmUser;
 import com.mikehuff.takehomeapplication.transforms.CircleTransform;
+import com.mikehuff.takehomeapplication.utils.ResUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +61,21 @@ class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Intent intent = new Intent(activity, DetailActivity.class);
         RealmUser user = userResults.get(position);
         intent.putExtra(EXTRA_USER_ID, user.getUserId());
-        activity.startActivity(intent);
+
+        Pair<View, String> p1 = Pair.create((View) contentVH.imageView, ResUtils.getStringByResId(R.string.transition_profile));
+        Pair<View, String> p2 = Pair.create((View) contentVH.circleView, ResUtils.getStringByResId(R.string.transition_color));
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(activity, p1, p2);
+        activity.startActivity(intent, options.toBundle());
       }
     });
+
     ((GradientDrawable) contentVH.circleView.getBackground()).setColor(Color.parseColor(user.getColor()));
-    Glide.with(contentVH.imageView.getContext()).load(user.getUserAvatarUrl()).diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.unknown).transform(circleTransform).into(contentVH.imageView);
+
+    Glide.with(activity).load(user.getUserAvatarUrl()).centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .placeholder(R.drawable.unknown)
+            .transform(circleTransform).into(contentVH.imageView);
   }
 
   @Override

@@ -53,9 +53,9 @@ public class DatabaseSyncService extends IntentService {
         rUser.setRealName(p.getRealName());
         rUser.setJobTitle(p.getTitle() != null ? p.getTitle() : ResUtils.getStringByResId(R.string.default_title));
         rUser.setUserAvatarUrl(p.getImageOriginal() != null ? p.getImageOriginal() : DUMMY_IMAGE);
+        rUser.setEmail(p.getEmail() != null ? p.getEmail() : ResUtils.getStringByResId(R.string.no_email));
         rUser.setPresence(m.getPresence());
         rUser.setColor("#" + m.getColor());
-        rUser.setEmail(p.getEmail());
         rUser.setPhone(p.getPhone() != null ? p.getPhone() : ResUtils.getStringByResId(R.string.default_telephone));
 
         //  This attempts to account for if one of the users on the team is deleted on the server.

@@ -2,4 +2,7 @@
     <string name="app_name">TakeHomeApplication</string>
     <string name="default_title">This person keeps an air of mystery about them</string>
     <string name="default_telephone">415-687-5309</string>
+    <string name="no_email">One does not simply contact this user</string>
+    <string name="transition_profile">profile</string>
+    <string name="transition_color">color</string>
 </resources>

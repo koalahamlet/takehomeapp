@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,7 +53,7 @@ public class DetailActivity extends AppCompatActivity {
     final String userId = getIntent().getStringExtra(EXTRA_USER_ID);
 
     setSupportActionBar(toolbar);
-    if (getSupportActionBar()!= null) {
+    if (getSupportActionBar() != null) {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -67,9 +68,9 @@ public class DetailActivity extends AppCompatActivity {
 
     tvUsername.setText(user.getUserName());
 
-    tvEmail.setText("Email: "+user.getEmail());
+    tvEmail.setText("Email: " + user.getEmail());
 
-    tvPhone.setText("Phone: "+user.getPhone());
+    tvPhone.setText("Phone: " + user.getPhone());
 
     tvJobTitle.setText(user.getJobTitle());
 
@@ -80,7 +81,20 @@ public class DetailActivity extends AppCompatActivity {
     final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
     final ImageView circleView = (ImageView) findViewById(R.id.circle_view);
     imageView.setBackgroundColor(Color.parseColor(user.getColor()));
-    Glide.with(this).load(user.getUserAvatarUrl()).centerCrop().transform(circleTransform).diskCacheStrategy(DiskCacheStrategy.ALL).into(circleView);
+
+    Glide.with(this).load(user.getUserAvatarUrl()).centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.unknown).transform(circleTransform).into(circleView);
   }
 
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      // Respond to the action bar's Up/Home button
+      case android.R.id.home:
+        supportFinishAfterTransition();
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
 }
