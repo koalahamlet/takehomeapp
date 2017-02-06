@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mikehuff.takehomeapplication.persistance.RealmUser;
 import com.mikehuff.takehomeapplication.transforms.CircleTransform;
 
@@ -57,12 +58,11 @@ class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Intent intent = new Intent(activity, DetailActivity.class);
         RealmUser user = userResults.get(position);
         intent.putExtra(EXTRA_USER_ID, user.getUserId());
-
         activity.startActivity(intent);
       }
     });
     ((GradientDrawable) contentVH.circleView.getBackground()).setColor(Color.parseColor(user.getColor()));
-    Glide.with(contentVH.imageView.getContext()).load(user.getUserAvatarUrl())
+    Glide.with(contentVH.imageView.getContext()).load(user.getUserAvatarUrl()).diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.unknown).transform(circleTransform).into(contentVH.imageView);
   }
 
