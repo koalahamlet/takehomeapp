@@ -19,10 +19,16 @@ libraries used with a brief explanation as to why:
     
     compile 'com.squareup.retrofit2:retrofit:2.1.0'            
 I used retrofit because I tend to prefer it for networking in android with clean REST apis. 
+
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 I used Gson, because that's my favorite JSON converter. No other reason. 
+    
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 This is so that I can get a nice log from Retrofit when something goes right/wrong with my networking and/or JSON parsing.
+
+    apply plugin: 'realm-android'
+I used realm to implement the majority of my persistence layer. This includes a fantastic api to be able to write to a single database
+instance, and have access to those objects on my main thread.
 
     compile 'com.jakewharton:butterknife:7.0.1' 
 I used butterknife because I enjoy its interface for binding views. "findViewById()", begone!
